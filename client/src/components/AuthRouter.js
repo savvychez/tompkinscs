@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 // import Dashboard from './pages/Dashboard';
 // import Login from './pages/Login';
 import Creator from '../pages/Creator';
+import TopNav from './TopNav';
 
 const AuthRouter = () => {
 	return (
 		<div className="container">
 			<Router>
-				{/* <TopNav/> */}
+				<TopNav/>
 				<Switch>
 					{/* <Route path="/login" component={Login} /> */}
 					<Route path="/create" component={Creator}/>

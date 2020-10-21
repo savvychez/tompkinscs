@@ -67,6 +67,9 @@ app.use(morgan('tiny'))
 const authRoute = require('./routes/auth')(sequelize); //Authentication reqs routed to routes/auth.js
 app.use('/auth', authRoute)
 
+const quizRoute = require('./routes/quiz')(sequelize)
+app.use('/quiz', quizRoute)
+
 // ---------------------- END ROUTING ---------------------- \\
 
 app.use((err, req, res, next) => { //Logs errors

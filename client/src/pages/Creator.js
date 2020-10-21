@@ -5,9 +5,10 @@ import "codemirror/theme/material.css";
 import "codemirror/mode/clike/clike";
 
 import "../styles/creator.css";
+import axios from "axios";
 
 const Creator = () => {
-  // const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [diff, setDiff] = useState(0);
 
   const [questions, setQuestions] = useState([]);
@@ -17,17 +18,15 @@ const Creator = () => {
   }, [questions]);
 
   const handleSelect = (e) => {
-    setDiff(e.target.value);
+    setDiff(parseInt(e.target.value));
   };
 
   const addQuestion = (e) => {
-    // let target = e.nativeEvent.target;
     let questionDiv = document.querySelector(".question");
     if (questionDiv) {
       let qHeight = questionDiv.offsetHeight;
       console.log(document.body.scrollHeight);
       console.log(qHeight);
-      // document.activeElement.blur()
       if (document.body.scrollHeight > qHeight * 2)
         document.documentElement.scrollTop = window.scrollY - 200;
       else document.documentElement.scrollTop = window.scrollY - qHeight / 8;
@@ -51,6 +50,16 @@ const Creator = () => {
     setQuestions(newQuestions);
   };
 
+  const submit = () => {
+    axios.post("/quiz/create", {
+      name,
+      diff,
+      questions
+    }).then(() => {
+      //TODO: Callback & Redirect   
+    })
+  }
+
   return (
     <div className="main-ctr">
       <div className="config">
@@ -61,6 +70,8 @@ const Creator = () => {
           id="qname"
           placeholder="Example Quiz"
           className="input-config"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="qdiff">Quiz Difficulty</label>
         <select value={diff} onChange={handleSelect} className="select-config">
@@ -115,7 +126,7 @@ const Creator = () => {
                     id={`rad-a-${index}`}
                     name={`correct-${index}`}
                     value="a"
-                    onChange={e => 
+                    onChange={(e) =>
                       updateQuestion(index, "correct", e.target.value)
                     }
                   />
@@ -139,7 +150,7 @@ const Creator = () => {
                     id={`rad-b-${index}`}
                     name={`correct-${index}`}
                     value="b"
-                    onChange={e => 
+                    onChange={(e) =>
                       updateQuestion(index, "correct", e.target.value)
                     }
                   />
@@ -163,7 +174,7 @@ const Creator = () => {
                     id={`rad-c-${index}`}
                     name={`correct-${index}`}
                     value="c"
-                    onChange={e => 
+                    onChange={(e) =>
                       updateQuestion(index, "correct", e.target.value)
                     }
                   />
@@ -187,7 +198,7 @@ const Creator = () => {
                     id={`rad-d-${index}`}
                     name={`correct-${index}`}
                     value="d"
-                    onChange={e => 
+                    onChange={(e) =>
                       updateQuestion(index, "correct", e.target.value)
                     }
                   />
@@ -211,7 +222,7 @@ const Creator = () => {
                     id={`rad-e-${index}`}
                     name={`correct-${index}`}
                     value="e"
-                    onChange={e => 
+                    onChange={(e) =>
                       updateQuestion(index, "correct", e.target.value)
                     }
                   />
@@ -230,13 +241,23 @@ const Creator = () => {
                 }
               />
             </div>
+            <button className="delete" onClick={() => {
+              let newQuestions = Array.from(questions)
+              newQuestions = newQuestions.filter((v,i) => i !== index);
+  
+              setQuestions(newQuestions)
+            }}>
+              Delete Question
+              <img src="../assets/trash.png" alt="" />
+            </button>
+            {index < questions.length-1 && <hr className="perq" />}
           </div>
         ))}
       </div>
       <button onClick={addQuestion}>Add Question +</button>
       <hr />
       <div className="submission">
-        <button className="submit">Submit!</button>
+        <button className="submit" onClick={submit}>Submit For Review</button>
       </div>
     </div>
   );
