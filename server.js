@@ -36,10 +36,10 @@ app.use(bodyParser.urlencoded({
 
 //CORS
 app.use(
-  cors({
-    // origin: "https://app.tompkinscs.com", // <-- location of the react app we're connecting to
-    // credentials: true,
-  })
+  // cors({
+  //   // origin: "https://app.tompkinscs.com", // <-- location of the react app we're connecting to
+  //   // credentials: true,
+  // })
 );
 
 //Create Session with env secret
