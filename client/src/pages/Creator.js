@@ -17,13 +17,17 @@ const Creator = () => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    if(cookie.load('questions'))
+    if (cookie.load('questions'))
       setQuestions(cookie.load('questions'))
   }, [])
 
   useEffect(() => {
     console.log(JSON.stringify(questions, null, 2));
   }, [questions]);
+
+  const resetQuiz = (e) => {
+    setQuestions([])
+  }
 
   const handleSelect = (e) => {
     setDiff(parseInt(e.target.value));
@@ -60,17 +64,20 @@ const Creator = () => {
   };
 
   const submit = () => {
-    axios.post("/quiz/create", {
-      name,
-      diff,
-      questions
-    })
-    alert("Submitted Quiz!")
+    if (id && name) {
+      axios.post("/quiz/create", {
+        name,
+        diff,
+        questions,
+        id
+      })
+      alert("Submitted Quiz!")
 
-    //TODO: Callback & Redirect
-    axios.post("https://maker.ifttt.com/trigger/new_quiz/with/key/b29qT57zYRHzFGTGlOqgq7", {
-      "value1": name, "value2": diff, "value3": name
-    })
+      //TODO: Callback & Redirect
+      
+    } else {
+      alert("Error! Make sure you input a test name and your student ID")
+    }
   }
 
   return (
@@ -278,6 +285,7 @@ const Creator = () => {
       </div>
       <button onClick={addQuestion}>Add Question +</button>
       <hr />
+      <button onClick={resetQuiz} className="delete">Reset Quiz</button>
       <div className="submission">
         <button className="submit" onClick={submit}>Submit For Review</button>
       </div>
