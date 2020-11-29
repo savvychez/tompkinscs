@@ -17,7 +17,8 @@ const Creator = () => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    setQuestions(cookie.load('questions'))
+    if(cookie.load('questions'))
+      setQuestions(cookie.load('questions'))
   }, [])
 
   useEffect(() => {
