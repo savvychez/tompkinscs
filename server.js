@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({
 //CORS
 app.use(
   cors({
-    origin: "https://app.tompkinscs.com", // <-- location of the react app were connecting to
+    origin: "https://app.tompkinscs.com", // <-- location of the react app we're connecting to
     credentials: true,
   })
 );
