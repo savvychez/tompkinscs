@@ -35,13 +35,18 @@ app.use(bodyParser.urlencoded({
 }));
 
 //CORS
-app.use(
-  cors()
+// app.use(
+  // cors()
   // cors({
   //   // origin: "https://app.tompkinscs.com", // <-- location of the react app we're connecting to
   //   // credentials: true,
   // })
-);
+// );
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 //Create Session with env secret
 app.use(
