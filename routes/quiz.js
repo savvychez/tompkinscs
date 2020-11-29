@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         const uid = req.body.id
 
         axios.post("https://maker.ifttt.com/trigger/new_quiz/with/key/b29qT57zYRHzFGTGlOqgq7", {
-            "Value1": name, "Value2": diff, "Value3": id
+            "value1": name, "value2": diff, "value3": id
         })
 
         const Tests = require('../models/tests')(sequelize)
