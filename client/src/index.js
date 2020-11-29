@@ -4,7 +4,7 @@ import App from './pages/App';
 import axios from 'axios';
 import './styles/App.css'
 
-axios.defaults.baseURL = 'http://34.68.141.169:5000/';
+axios.defaults.baseURL = 'https://api.tompkinscs.com';
 axios.defaults.withCredentials = true  // enable axios post cookie, default false
 
 
