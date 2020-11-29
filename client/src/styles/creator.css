@@ -26,7 +26,7 @@ body {
     font-family: 'Fira Code', sans-serif;
     font-weight: 900;
     font-size: 2.5em;
-    color: #001120;
+    color: #012c52;
     margin: 1em 0 0.5em 0;
 }
 
@@ -42,7 +42,7 @@ label {
     font-weight: 800;
     padding: 0em 0.5em 0.25em 0;
     background-color: #f5f6f7;
-    color: #002292;
+    color: #012c52;
     /* border: 2px solid var(--input-border); */
     border: none;
     outline: none;
@@ -57,7 +57,7 @@ label {
     padding: 0em 0.5em 0 0;
     margin: 0 -2px;
     background-color: #f5f6f7;
-    color: #002292;
+    color: #012c52;
     /* border: 2px solid var(--input-border); */
     border: none;
     outline: none;
@@ -177,7 +177,7 @@ button {
     height: 4em;
     margin: 0.5em auto;
     background-color: #f9f9f9;
-    color: #0c2fa0;
+    color: #012c52;
     border: 2px dashed var(--input-border) ;
     border-radius: 5px;
     transition: 0.25s;
@@ -226,11 +226,11 @@ button:hover {
     padding: 0.5em 2.5em;
     border-style: solid;
     margin: 2em auto;
-    background-color: #2647b3;
+    background-color: #012c52;
     color: #f5f6f7;
 
 }
 
 .submit:hover {
-    background-color: #0f309c;
+    background-color: #001120;
 }

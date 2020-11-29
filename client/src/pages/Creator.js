@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
+import cookie from 'react-cookies'
+
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
 import "codemirror/mode/clike/clike";
@@ -8,10 +10,15 @@ import "../styles/creator.css";
 import axios from "axios";
 
 const Creator = () => {
+  const [id, setID] = useState("");
   const [name, setName] = useState("");
   const [diff, setDiff] = useState(0);
 
   const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    setQuestions(cookie.load('questions'))
+  }, [])
 
   useEffect(() => {
     console.log(JSON.stringify(questions, null, 2));
@@ -48,6 +55,7 @@ const Creator = () => {
     if (answerMode) newQuestions[index].answers[block] = value;
     else newQuestions[index][block] = value;
     setQuestions(newQuestions);
+    cookie.save('questions', newQuestions, { path: '/' })
   };
 
   const submit = () => {
@@ -55,8 +63,12 @@ const Creator = () => {
       name,
       diff,
       questions
-    }).then(() => {
-      //TODO: Callback & Redirect   
+    })
+    alert("Submitted Quiz!")
+
+    //TODO: Callback & Redirect
+    axios.post("https://maker.ifttt.com/trigger/new_quiz/with/key/b29qT57zYRHzFGTGlOqgq7", {
+      "value1": name, "value2": diff, "value3": name
     })
   }
 
@@ -64,6 +76,15 @@ const Creator = () => {
     <div className="main-ctr">
       <div className="config">
         <h1>Quiz Creator</h1>
+        <label htmlFor="qname">Student ID</label>
+        <input
+          type="text"
+          id="student_id"
+          placeholder="YourID"
+          className="input-config"
+          value={id}
+          onChange={(e) => setID(e.target.value)}
+        />
         <label htmlFor="qname">Quiz Name</label>
         <input
           type="text"
@@ -243,14 +264,14 @@ const Creator = () => {
             </div>
             <button className="delete" onClick={() => {
               let newQuestions = Array.from(questions)
-              newQuestions = newQuestions.filter((v,i) => i !== index);
-  
+              newQuestions = newQuestions.filter((v, i) => i !== index);
+
               setQuestions(newQuestions)
             }}>
               Delete Question
               <img src="../assets/trash.png" alt="" />
             </button>
-            {index < questions.length-1 && <hr className="perq" />}
+            {index < questions.length - 1 && <hr className="perq" />}
           </div>
         ))}
       </div>
